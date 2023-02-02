@@ -4,8 +4,9 @@ import { Pokemon } from '../pokemon';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pokemon-form',
+  selector: 'pokemon-form',
   templateUrl: './pokemon-form.component.html',
+  styleUrls: ['./pokemon-form.component.css']
 })
 export class PokemonFormComponent implements OnInit {
   @Input() pokemon : Pokemon;
@@ -25,12 +26,12 @@ export class PokemonFormComponent implements OnInit {
   }
 
   /** Ajoute un type à la liste des types du pokémon ou le retire si le type est déjà présent */
-  selectType($event : Event, type: string) {
+  selectType($event : Event, pokemonType: string) {
     const isChecked : boolean =($event.target as HTMLInputElement).checked;
     if (isChecked) {
-      this.pokemon.types.push(type);
+      this.pokemon.types.push(pokemonType);
     } else {
-      this.pokemon.types = this.pokemon.types.filter(type => type !== type);
+      this.pokemon.types = this.pokemon.types.filter(type => type !== pokemonType);
     }
   }
 
@@ -50,6 +51,8 @@ export class PokemonFormComponent implements OnInit {
   /** Soumission du formulaire */
   onSubmit() {
     console.log('Soumission du formulaire');
-    this._router.navigate(['pokemons', this.pokemon.id]);
+    this._pokemonService.updatePokemon(this.pokemon).subscribe(() => {
+      this._router.navigate(['pokemon', this.pokemon.id]);
+    });
   }
 }

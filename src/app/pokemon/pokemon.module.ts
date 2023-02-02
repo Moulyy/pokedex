@@ -8,10 +8,12 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 import { FormsModule } from '@angular/forms';
 import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
+import { PokemonEditComponent } from './pokemon-edit/pokemon-edit.component';
 
 const pokemonRoutes: Routes = [
   {path: 'pokemons', component: PokemonListComponent},
   {path: 'pokemon/:id', component: PokemonDetailComponent},
+  {path: 'pokemon/edit/:id', component: PokemonEditComponent}
 ]
 
 @NgModule({
@@ -21,6 +23,7 @@ const pokemonRoutes: Routes = [
     PokemonListComponent,
     PokemonDetailComponent,
     PokemonFormComponent,
+    PokemonEditComponent,
   ],
   imports: [
     CommonModule,
