@@ -12,12 +12,14 @@ export class PokemonFormComponent implements OnInit {
   @Input() pokemon : Pokemon;
   types : string[];
   oldPokemon: Pokemon;
+  isEdition: boolean;
   
   constructor(private _pokemonService: PokemonService, private _router: Router) {}
 
   ngOnInit(): void {
     this.types = this._pokemonService.getPokemonTypeList();
     this.oldPokemon = {...this.pokemon};
+    this.isEdition = !this._router.url.includes('add');
   }
 
   /** Le pokémon en train d'être éditer possède t-il le type passé en paramètre  */
@@ -51,8 +53,14 @@ export class PokemonFormComponent implements OnInit {
   /** Soumission du formulaire */
   onSubmit() {
     console.log('Soumission du formulaire');
-    this._pokemonService.updatePokemon(this.pokemon).subscribe(() => {
-      this._router.navigate(['pokemon', this.pokemon.id]);
-    });
+    if(this.isEdition) {
+      this._pokemonService.updatePokemon(this.pokemon).subscribe(() => {
+        this._router.navigate(['pokemon', this.pokemon.id]);
+      });
+    } else {
+      this._pokemonService.addPokemon(this.pokemon).subscribe((pokemon: Pokemon) => {
+        this._router.navigate(['pokemon', pokemon.id]);
+      })
+    }
   }
 }

@@ -45,6 +45,19 @@
                  Les dégâts du pokémon sont compris entre 0 et 99.
            </div>
         </div>
+
+        <!-- Pokemon cp -->
+        <div *ngIf="!isEdition" class="form-group">
+          <label for="picture">Photo</label>
+          <input type="url" class="form-control" id="picture"
+                  required
+                  [(ngModel)]="pokemon.picture" name="picture"
+                  #picture="ngModel">
+           <div [hidden]="picture.valid || picture.pristine"
+                 class="card-panel red accent-1">
+                 L'image du pokémon est requise.
+           </div>
+        </div>
   
         <!-- Pokemon types -->
         <form class="form-group">
