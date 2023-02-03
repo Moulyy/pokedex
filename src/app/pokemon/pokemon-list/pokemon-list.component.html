@@ -1,4 +1,5 @@
 <div class='container'>
+  <pokemon-search></pokemon-search>
   <div class="row">
     <div *ngFor='let pokemon of pokemons' class="col s6 m4">
       <div borderCard class="card horizontal" (click)="goToPokemon(pokemon.id)">
